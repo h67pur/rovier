@@ -1,7 +1,5 @@
-# Используем официальный образ PHP CLI
 FROM php:8.2-cli
 
-# Устанавливаем переменные окружения
 ARG UID=1000
 ARG GID=1000
 ARG NODE_VERSION=22.0.0
@@ -12,7 +10,6 @@ ARG XDEBUG_IDE_KEY
 ARG XDEBUG_LOG
 ARG XDEBUG_LOG_LEVEL
 
-# Устанавливаем системные зависимости
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     unzip \
@@ -38,13 +35,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Устанавливаем Node.js и npm глобально (не через NVM)
 RUN curl -fsSL https://deb.nodesource.com/setup_23.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest \
     && corepack enable
 
-# Настраиваем Xdebug
 RUN if [ "${XDEBUG_ENABLED}" = "true" ]; then \
     echo "xdebug.mode=${XDEBUG_MODE}" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
     echo "xdebug.idekey=${XDEBUG_IDE_KEY}" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
@@ -54,7 +49,6 @@ RUN if [ "${XDEBUG_ENABLED}" = "true" ]; then \
     echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini ; \
 fi
 
-# Создаем пользователя и группу
 RUN if getent group ${GID}; then \
       useradd -m -u ${UID} -g ${GID} -s /bin/bash www; \
     else \
@@ -64,14 +58,10 @@ RUN if getent group ${GID}; then \
     usermod -aG sudo www && \
     echo 'www ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# Устанавливаем PATH для Node.js
 ENV PATH="/usr/bin/node:/usr/bin/npm:${PATH}"
 
-# Переключаемся на пользователя www
 USER www
 
-# Устанавливаем рабочую директорию
 WORKDIR /var/www
 
-# Открываем порты
 EXPOSE 80 5173
