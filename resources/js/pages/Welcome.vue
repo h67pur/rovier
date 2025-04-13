@@ -5,4 +5,7 @@ import { Head } from '@inertiajs/vue3';
 <template>
     <Head title="Стартовая страница">
     </Head>
+    <div>
+        Тест
+    </div>
 </template>
