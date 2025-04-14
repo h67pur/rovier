@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\Pages\WelcomeController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Login');
-})->name('home');
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 require __DIR__.'/auth.php';
+require __DIR__.'/workspace/workspace.php';

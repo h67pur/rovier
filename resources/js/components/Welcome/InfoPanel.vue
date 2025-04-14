@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO: Подумать делать ли гибкую настройку
 const solutions = [
     {
         icon: 'pi pi-sitemap',
@@ -96,15 +97,3 @@ const solutions = [
         </template>
     </Card>
 </template>
-
-<style>
-.feature-card {
-    transform-origin: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
-}
-</style>

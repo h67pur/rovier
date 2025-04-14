@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
-import InfoPanel from '@/components/Login/InfoPanel.vue';
-import LoginForm from '@/components/Login/LoginForm.vue';
+import InfoPanel from '@/components/Welcome/InfoPanel.vue';
+import LoginPanel from '@/components/Welcome/LoginPanel.vue';
+import HistoryPanel from '@/components/Welcome/HistoryPanel.vue';
 </script>
 
 <template>
@@ -14,11 +15,10 @@ import LoginForm from '@/components/Login/LoginForm.vue';
         </div>
         <div class="grid grid-cols-3 gap-4 w-full h-full justify-center">
             <InfoPanel />
-            <LoginForm />
+            <div class="flex flex-col gap-4">
+                <LoginPanel />
+                <HistoryPanel />
+            </div>
         </div>
     </div>
 </template>
-
-<style>
-
-</style>

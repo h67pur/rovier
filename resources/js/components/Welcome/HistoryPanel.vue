@@ -1,14 +1,5 @@
 <script setup lang="ts">
-import Password from 'primevue/password';
-import InputText from 'primevue/inputtext';
-import Button from 'primevue/button';
-import { ref } from 'vue';
-
-const email = ref('');
-const password = ref('');
-
-const handleLogin = () => {};
-
+// TODO: Реализовать выдачу историй изменений с бека
 const changes = [
     {
         id: 1,
@@ -146,68 +137,45 @@ const changes = [
 </script>
 
 <template>
-    <div class="flex flex-col gap-4">
-        <Card class="border rounded-2xl shadow-lg transition-all duration-300">
-            <template #title>Вход в систему</template>
-            <template #content>
-                <div class="flex flex-col-2 gap-4 justify-between pt-2">
-                    <FloatLabel variant="on" class="w-full">
-                        <InputText id="email_label" v-model="email" class="w-full"/>
-                        <label for="email_label">Email</label>
-                    </FloatLabel>
+    <Card class="h-full border-0 rounded-2xl shadow-xl bg-gradient-to-br from-gray-800 to-gray-900 text-white">
+        <template #title>
+            <div class="flex items-center gap-3">
+                <i class="pi pi-history text-2xl text-blue-400"></i>
+                <h2 class="text-xl font-bold">История последних изменений</h2>
+            </div>
+        </template>
 
-                    <FloatLabel variant="on">
-                        <Password v-model="password" inputId="password-label" toggleMask :feedback="false" />
-                        <label for="password-label">Пароль</label>
-                    </FloatLabel>
-                </div>
-                <Button label="Войти"
-                        size="small"
-                        icon="pi pi-sign-in"
-                        class="w-full mt-4"
-                        @click="handleLogin" />
-            </template>
-        </Card>
-        <Card class="h-full border-0 rounded-2xl shadow-xl bg-gradient-to-br from-gray-800 to-gray-900 text-white">
-            <template #title>
-                <div class="flex items-center gap-3">
-                    <i class="pi pi-history text-2xl text-blue-400"></i>
-                    <h2 class="text-xl font-bold">История последних изменений</h2>
-                </div>
-            </template>
-
-            <template #content>
-                <div class="h-[600px] overflow-y-auto scroll-container">
-                    <div v-for="(change, index) in changes"
-                         :key="index"
-                         class="group relative mb-4 transition-all duration-300">
-                        <Card class="border-0 rounded-xl bg-gray-700/50 hover:!bg-gray-700/70 backdrop-blur-sm cursor-pointer transition-all duration-300">
-                            <template #content>
-                                <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0">
-                                        <i :class="change.icon" class="text-2xl mt-1" :style="{ color: change.color }"></i>
+        <template #content>
+            <div class="h-[580px] overflow-y-auto scroll-container">
+                <div v-for="(change, index) in changes"
+                     :key="index"
+                     class="group relative mb-4 transition-all duration-300">
+                    <Card class="border-0 rounded-xl bg-gray-700/50 hover:!bg-gray-700/70 backdrop-blur-sm cursor-pointer transition-all duration-300">
+                        <template #content>
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0">
+                                    <i :class="change.icon" class="text-2xl mt-1" :style="{ color: change.color }"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <div class="flex items-center justify-between">
+                                        <h3 class="text-lg font-semibold text-blue-400">{{ change.title }}</h3>
+                                        <span class="text-sm text-gray-400">{{ change.date }}</span>
                                     </div>
-                                    <div class="flex-grow">
-                                        <div class="flex items-center justify-between">
-                                            <h3 class="text-lg font-semibold text-blue-400">{{ change.title }}</h3>
-                                            <span class="text-sm text-gray-400">{{ change.date }}</span>
-                                        </div>
-                                        <p class="mt-2 text-gray-300">{{ change.description }}</p>
-                                        <div class="mt-3 flex items-center gap-2 text-sm">
-                                            <Tag v-for="(tag, tagIndex) in change.tags"
-                                                 :key="tagIndex"
-                                                 :value="tag"
-                                                 class="text-xs bg-gray-600/50 border-0" />
-                                        </div>
+                                    <p class="mt-2 text-gray-300">{{ change.description }}</p>
+                                    <div class="mt-3 flex items-center gap-2 text-sm">
+                                        <Tag v-for="(tag, tagIndex) in change.tags"
+                                             :key="tagIndex"
+                                             :value="tag"
+                                             class="text-xs bg-gray-600/50 border-0" />
                                     </div>
                                 </div>
-                            </template>
-                        </Card>
-                    </div>
+                            </div>
+                        </template>
+                    </Card>
                 </div>
-            </template>
-        </Card>
-    </div>
+            </div>
+        </template>
+    </Card>
 </template>
 
 <style scoped>
