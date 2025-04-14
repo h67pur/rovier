@@ -7,7 +7,9 @@ import { ref } from 'vue';
 const email = ref('');
 const password = ref('');
 
-const handleLogin = () => {};
+const handleLogin = () => {
+
+};
 </script>
 
 <template>
@@ -33,7 +35,7 @@ const handleLogin = () => {};
                         @click="handleLogin" />
                 <Button label="Восстановить пароль"
                         size="small"
-                        icon="pi pi-sign-in"
+                        icon="pi pi-refresh"
                         class="w-full mt-4"
                         @click="handleLogin" />
             </div>
